@@ -50,38 +50,12 @@
 </head>
 <body>
     <h1>User Information</h1>
-    <form action="/submit" method="post" onsubmit="return validateForm()">
+    <form action="/submit" method="post">
         <label for="username">Username:</label>
-        <input type="text" id="username" name="username" required><span id="usernameError" class="error"></span><br><br>
+        <input type="text" id="username" name="username" required><br><br>
         <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required><span id="emailError" class="error"></span><br><br>
+        <input type="email" id="email" name="email" required><br><br>
         <input type="submit" value="Submit">
     </form>
-
-    <script>
-        function validateForm() {
-            var username = document.getElementById("username").value;
-            var email = document.getElementById("email").value;
-            var isValid = true;
-
-            // Validate username
-            if (username == "") {
-                document.getElementById("usernameError").innerHTML = "Username is required";
-                isValid = false;
-            } else {
-                document.getElementById("usernameError").innerHTML = "";
-            }
-
-            // Validate email
-            if (email == "") {
-                document.getElementById("emailError").innerHTML = "Email is required";
-                isValid = false;
-            } else {
-                document.getElementById("emailError").innerHTML = "";
-            }
-
-            return isValid;
-        }
-    </script>
 </body>
 </html>

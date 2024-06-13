@@ -20,14 +20,6 @@ def get_db_connection():
     conn = psycopg2.connect(DATABASE_URL)
     return conn
 
-# Establish a connection to the database
-try:
-    conn = get_db_connection
-    cur = conn.cursor()
-    logging.info("Connected to the database successfully.")
-except Exception as e:
-    logging.error(f"Error connecting to the database: {e}")
-
 # SQL command to create a table named "users" in the "test" schema
 create_table_sql = """
 CREATE TABLE IF NOT EXISTS test.users (
@@ -37,14 +29,13 @@ CREATE TABLE IF NOT EXISTS test.users (
 );
 """
 
-try:
-    # Execute the SQL command to create the table
-    cur.execute(create_table_sql)
-    cur.close()
-    conn.close()
-    logging.info("Table 'users' created successfully.")
-except Exception as e:
-    logging.error(f"Error creating table 'users': {e}")
+# Establish a connection to the database
+conn = get_db_connection
+cur = conn.cursor()
+# Execute the SQL command to create the table
+cur.execute(create_table_sql)
+cur.close()
+conn.close()
 
 @app.route('/')
 def index():
@@ -52,20 +43,14 @@ def index():
 
 @app.route('/submit', methods=['POST'])
 def submit():
-    try:
-        conn = psycopg2.connect(DATABASE_URL)
-        username = request.form['username']
-        email = request.form['email']
-        cur.execute("INSERT INTO test.users (username, email) VALUES (%s, %s)", (username, email))
-        conn.commit()
-        cur.close()
-        conn.close()
-        logging.info("Data inserted successfully.")
-        return "Submitted!"
-    except Exception as e:
-        conn.rollback()
-        logging.error(f"Error inserting data: {e}")
-        return "Error submitting data. Please try again."
+    conn = psycopg2.connect(DATABASE_URL)
+    username = request.form['username']
+    email = request.form['email']
+    cur.execute("INSERT INTO test.users (username, email) VALUES (%s, %s)", (username, email))
+    conn.commit()
+    cur.close()
+    conn.close()
+    return "Submitted!"
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8080)
