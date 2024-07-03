@@ -1,20 +1,20 @@
 steps:
   # Build Docker images for the frontend and backend
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 'gcr.io/$PROJECT_ID/frontend-ui:$SHORT_SHA', './frontend']
+    args: ['build', '-t', 'gcr.io/eco-tract-422800-r5/frontend-ui:latest', './frontend']
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 'gcr.io/$PROJECT_ID/python-app:$SHORT_SHA', './backend']
+    args: ['build', '-t', 'gcr.io/eco-tract-422800-r5/python-app:latest', './backend']
   
   # Push images to Google Container Registry
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['push', 'gcr.io/$PROJECT_ID/frontend-ui:$SHORT_SHA']
+    args: ['push', 'gcr.io/eco-tract-422800-r5/frontend-ui:latest']
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['push', 'gcr.io/$PROJECT_ID/python-app:$SHORT_SHA']
+    args: ['push', 'gcr.io/eco-tract-422800-r5/python-app:latest']
   
   # Deploy to GKE
   - name: 'gcr.io/cloud-builders/kubectl'
-    args: ['set', 'image', 'deployment/frontend-ui', 'frontend-ui=gcr.io/$PROJECT_ID/frontend-ui:$SHORT_SHA', '--namespace=default']
+    args: ['set', 'image', 'deployment/frontend-ui', 'frontend-ui=gcr.io/eco-tract-422800-r5/frontend-ui:latest', '--namespace=default']
     env: ['CLOUDSDK_COMPUTE_ZONE=us-central1-a', 'CLOUDSDK_CONTAINER_CLUSTER=gke-ramakrishna']
   - name: 'gcr.io/cloud-builders/kubectl'
-    args: ['set', 'image', 'deployment/python-app', 'python-app=gcr.io/$PROJECT_ID/python-app:$SHORT_SHA', '--namespace=default']
+    args: ['set', 'image', 'deployment/python-app', 'python-app=gcr.io/eco-tract-422800-r5/python-app:latest', '--namespace=default']
     env: ['CLOUDSDK_COMPUTE_ZONE=us-central1-a', 'CLOUDSDK_CONTAINER_CLUSTER=gke-ramakrishna']

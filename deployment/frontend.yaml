@@ -28,6 +28,6 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: gcr.io/$PROJECT_ID/frontend-ui:$SHORT_SHA
+        image: gcr.io/eco-tract-422800-r5/frontend-ui:latest
         ports:
         - containerPort: 80

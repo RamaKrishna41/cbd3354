@@ -28,7 +28,7 @@ spec:
     spec:
       containers:
       - name: backend
-        image: gcr.io/$PROJECT_ID/python-app:$SHORT_SHA
+        image: gcr.io/eco-tract-422800-r5/python-app:latest
         env:
         - name: DB_HOST
           value: "104.197.86.70"
