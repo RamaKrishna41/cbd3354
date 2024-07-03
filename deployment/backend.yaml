@@ -1,11 +1,10 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: backend-service
-  namespace: backend
+  name: python-app
 spec:
   selector:
-    app: backend-app
+    app: python-app
   ports:
     - protocol: TCP
       port: 80
@@ -16,21 +15,20 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: backend-deployment
-  namespace: backend
+  name: python-app
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: backend-app
+      app: python-app
   template:
     metadata:
       labels:
-        app: backend-app
+        app: python-app
     spec:
       containers:
       - name: backend
-        image: gcr.io/eco-tract-422800-r5/backend:latest
+        image: gcr.io/$PROJECT_ID/python-app:$SHORT_SHA
         env:
         - name: DB_HOST
           value: "104.197.86.70"
