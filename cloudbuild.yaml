@@ -16,10 +16,10 @@ steps:
 
   # Apply the deployments
   - name: 'gcr.io/cloud-builders/kubectl'
-    args: ['apply', '-f', 'backend.yaml', './deployment']
+    args: ['apply', '-f', 'backend.yaml']
     env: ['CLOUDSDK_COMPUTE_ZONE=us-central1-a', 'CLOUDSDK_CONTAINER_CLUSTER=gke-ramakrishna']
   - name: 'gcr.io/cloud-builders/kubectl'
-    args: ['apply', '-f', 'frontend.yaml', './deployment']
+    args: ['apply', '-f', 'frontend.yaml']
     env: ['CLOUDSDK_COMPUTE_ZONE=us-central1-a', 'CLOUDSDK_CONTAINER_CLUSTER=gke-ramakrishna']
   
   # Deploy to GKE
