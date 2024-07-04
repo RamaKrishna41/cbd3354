@@ -13,6 +13,14 @@ steps:
     args: ['push', 'gcr.io/eco-tract-422800-r5/frontend-ui:latest']
   - name: 'gcr.io/cloud-builders/docker'
     args: ['push', 'gcr.io/eco-tract-422800-r5/python-app:latest']
+
+  # Apply the deployments
+  - name: 'gcr.io/cloud-builders/kubectl'
+    args: ['apply', '-f', 'backend.yaml', './deployment']
+    env: ['CLOUDSDK_COMPUTE_ZONE=us-central1-a', 'CLOUDSDK_CONTAINER_CLUSTER=gke-ramakrishna']
+  - name: 'gcr.io/cloud-builders/kubectl'
+    args: ['apply', '-f', 'frontend.yaml', './deployment']
+    env: ['CLOUDSDK_COMPUTE_ZONE=us-central1-a', 'CLOUDSDK_CONTAINER_CLUSTER=gke-ramakrishna']
   
   # Deploy to GKE
   - name: 'gcr.io/cloud-builders/kubectl'
