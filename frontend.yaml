@@ -27,7 +27,7 @@ spec:
         app: frontend-ui
     spec:
       containers:
-      - name: frontend
+      - name: frontend-ui
         image: gcr.io/eco-tract-422800-r5/frontend-ui:latest
         ports:
         - containerPort: 80

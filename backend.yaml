@@ -27,7 +27,7 @@ spec:
         app: python-app
     spec:
       containers:
-      - name: backend
+      - name: python-app
         image: gcr.io/eco-tract-422800-r5/python-app:latest
         env:
         - name: DB_HOST
