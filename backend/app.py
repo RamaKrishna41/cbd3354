@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS test.users (
 """
 
 # Establish a connection to the database
-conn = get_db_connection
+conn = get_db_connection()
 cur = conn.cursor()
 # Execute the SQL command to create the table
 cur.execute(create_table_sql)
