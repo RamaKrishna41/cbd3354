@@ -21,21 +21,21 @@ def get_db_connection():
     return conn
 
 # SQL command to create a table named "users" in the "test" schema
-create_table_sql = """
-CREATE TABLE IF NOT EXISTS test.users (
-    id SERIAL PRIMARY KEY,
-    username VARCHAR(255),
-    email VARCHAR(255)
-);
-"""
+# create_table_sql = """
+# CREATE TABLE IF NOT EXISTS test.users (
+#     id SERIAL PRIMARY KEY,
+#     username VARCHAR(255),
+#     email VARCHAR(255)
+# );
+# """
 
-# Establish a connection to the database
-conn = get_db_connection()
-cur = conn.cursor()
-# Execute the SQL command to create the table
-cur.execute(create_table_sql)
-cur.close()
-conn.close()
+# # Establish a connection to the database
+# conn = get_db_connection()
+# cur = conn.cursor()
+# # Execute the SQL command to create the table
+# cur.execute(create_table_sql)
+# cur.close()
+# conn.close()
 
 @app.route('/')
 def index():
@@ -43,12 +43,11 @@ def index():
 
 @app.route('/submit', methods=['POST'])
 def submit():
-    conn = psycopg2.connect(DATABASE_URL)
+    conn = get_db_connection()
     username = request.form['username']
     email = request.form['email']
-    cur.execute("INSERT INTO test.users (username, email) VALUES (%s, %s)", (username, email))
+    conn.execute("INSERT INTO test.users (username, email) VALUES (%s, %s)", (username, email))
     conn.commit()
-    cur.close()
     conn.close()
     return "Submitted!"
 
